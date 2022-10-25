@@ -28,4 +28,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 var busControll = app.Services.GetRequiredService<IBusControl>();
+
 app.Run();

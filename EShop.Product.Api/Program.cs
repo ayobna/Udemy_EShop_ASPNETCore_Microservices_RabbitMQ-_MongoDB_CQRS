@@ -1,8 +1,8 @@
 using EShop.Infrastructure.EventBus;
 using EShop.Infrastructure.Mongo;
 using EShop.Product.Api.Handlers;
-using EShop.Product.Api.Repository;
-using EShop.Product.Api.Service;
+using EShop.Product.DataProvider.Repository;
+using EShop.Product.DataProvider.Service;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -40,6 +40,7 @@ builder.Services.AddMassTransit(x => {
             ep.ConfigureConsumer<CreateProductHandler>(provider);
         });
     }));
+
 });
 
 var app = builder.Build();
@@ -50,13 +51,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 var busControll = app.Services.GetRequiredService<IBusControl>();
 busControll.Start();
 
 var dbInitializer = app.Services.GetRequiredService<IDatabaseInitializer>();
 dbInitializer.InitializeAsync();
-
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

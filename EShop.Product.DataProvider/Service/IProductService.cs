@@ -1,11 +1,11 @@
 ﻿using EShop.Infrastructure.Command.Product;
 using EShop.Infrastructure.Event.Product;
 
-namespace EShop.Product.Api.Repository
+namespace EShop.Product.DataProvider.Service
 {
-    public interface IProductRepository
+    public interface IProductService
     {
-        Task<ProductCreated> AddProduct(CreateProduct product);
         Task<ProductCreated> GetProduct(string ProductId);
+        Task<ProductCreated> AddProduct(CreateProduct product);
     }
 }

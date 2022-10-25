@@ -1,4 +1,5 @@
 ﻿
+using EShop.Infrastructure.Query.Product;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,10 +23,16 @@ namespace EShop.Infrastructure.EventBus
                     });
                     cfg.ConfigureEndpoints(provider);
                 }));
-        
+                x.AddRequestClient<GetProductById>();
+           
             });
 
-            
+            services.Configure<MassTransitHostOptions>(options =>
+            {
+                options.WaitUntilStarted = true;
+                options.StartTimeout = TimeSpan.FromSeconds(30);
+                options.StopTimeout = TimeSpan.FromMinutes(1);
+            });
 
             return services;
         }
