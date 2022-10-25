@@ -1,6 +1,6 @@
 ﻿using EShop.Infrastructure.Command.Product;
 using EShop.Infrastructure.Event.Product;
-using EShop.Product.Api.Service;
+using EShop.Product.DataProvider.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

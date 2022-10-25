@@ -1,8 +1,8 @@
 using EShop.Infrastructure.EventBus;
 using EShop.Infrastructure.Mongo;
 using EShop.Product.Api.Handlers;
-using EShop.Product.Api.Repository;
-using EShop.Product.Api.Service;
+using EShop.Product.DataProvider.Repository;
+using EShop.Product.DataProvider.Service;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
