@@ -1,6 +1,8 @@
 ﻿using EShop.Infrastructure.Command.Product;
 using EShop.Infrastructure.Event.Product;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+
 
 namespace EShop.Product.DataProvider.Repository
 {
@@ -18,7 +20,6 @@ namespace EShop.Product.DataProvider.Repository
       
         }
 
-
         public async Task<ProductCreated> AddProduct(CreateProduct product)
         {
             await _collection.InsertOneAsync(product);
@@ -28,13 +29,15 @@ namespace EShop.Product.DataProvider.Repository
         public async Task<ProductCreated> GetProduct(string ProductId)
         {
             var product = new CreateProduct();
-            product = await _collection.AsQueryable().FirstOrDefaultAsync();
+            product = await _collection.AsQueryable().FirstOrDefaultAsync(x => x.ProductId == ProductId);
             return new ProductCreated() { ProductId = product.ProductId, ProductName = product.ProductName };
+
         }
 
 
-      
 
-    
+
+
+
     }
 }

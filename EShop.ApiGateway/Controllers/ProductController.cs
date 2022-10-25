@@ -1,4 +1,6 @@
 ﻿using EShop.Infrastructure.Command.Product;
+using EShop.Infrastructure.Event.Product;
+using EShop.Infrastructure.Query.Product;
 using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,16 +16,18 @@ namespace EShop.ApiGateway.Controllers
 
 
         private IBusControl _bus;
-
-        public ProductController(IBusControl bus)
+        IRequestClient<GetProductById> _requestClient;
+        public ProductController(IBusControl bus ,IRequestClient<GetProductById> request)
         {
             _bus = bus;
+            _requestClient = request;
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string ProductId)
         {
-            await Task.CompletedTask;
-            return Accepted("Get Product Method called");
+            var prdct= new GetProductById() { ProductId=ProductId};
+            var product = await _requestClient.GetResponse <ProductCreated>(prdct);
+            return Accepted(product);
         }
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] CreateProduct product)

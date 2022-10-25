@@ -40,6 +40,7 @@ builder.Services.AddMassTransit(x => {
             ep.ConfigureConsumer<CreateProductHandler>(provider);
         });
     }));
+
 });
 
 var app = builder.Build();
@@ -50,13 +51,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 var busControll = app.Services.GetRequiredService<IBusControl>();
 busControll.Start();
 
 var dbInitializer = app.Services.GetRequiredService<IDatabaseInitializer>();
 dbInitializer.InitializeAsync();
-
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
